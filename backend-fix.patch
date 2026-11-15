@@ -1,0 +1,26 @@
+diff --git a/src/main/java/com/uam/gestionacademica/infrastructure/security/SecurityConfig.java b/src/main/java/com/uam/gestionacademica/infrastructure/security/SecurityConfig.java
+index 6392002..6700592 100644
+--- a/src/main/java/com/uam/gestionacademica/infrastructure/security/SecurityConfig.java
++++ b/src/main/java/com/uam/gestionacademica/infrastructure/security/SecurityConfig.java
+@@ -98,7 +98,7 @@ public class SecurityConfig {
+     @Bean
+     public JwtAuthenticationConverter jwtAuthenticationConverter(){
+         JwtGrantedAuthoritiesConverter authoritiesConverter = new JwtGrantedAuthoritiesConverter();
+-        authoritiesConverter.setAuthoritiesClaimDelimiter(ROLES_CLAIM);
++        authoritiesConverter.setAuthoritiesClaimName(ROLES_CLAIM);
+         authoritiesConverter.setAuthorityPrefix("ROLE_");
+ 
+         JwtAuthenticationConverter converter = new JwtAuthenticationConverter();
+diff --git a/src/main/java/com/uam/gestionacademica/infrastructure/web/CarreraController.java b/src/main/java/com/uam/gestionacademica/infrastructure/web/CarreraController.java
+index a0f2ca4..1066e35 100644
+--- a/src/main/java/com/uam/gestionacademica/infrastructure/web/CarreraController.java
++++ b/src/main/java/com/uam/gestionacademica/infrastructure/web/CarreraController.java
+@@ -34,7 +34,7 @@ public class CarreraController {
+     }
+ 
+     @GetMapping
+-    @PreAuthorize("hasAnyRoles('ADMIN', 'DOCENTE', 'ESTUDIANTE')")
++    @PreAuthorize("hasAnyRole('ADMIN', 'DOCENTE', 'ESTUDIANTE')")
+     public ResponseEntity<List<CarreraResponse>> getAll(){
+         List<CarreraResponse> carreras = carreraService.getAllCarreras()
+                 .stream()
